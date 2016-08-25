@@ -11,20 +11,20 @@ type UA struct {
 	p   int
 }
 
-func (u UA) Get() (*user_agent.UserAgent, error) {
-	if len(u.UAs) == len {
+func (u *UA) Get() (*user_agent.UserAgent, error) {
+	if len(u.UAs) == 0 {
 		return nil, errors.New("not found user agent")
 	}
 
-	if p+1 == len(u.UAs) {
-		p = 0
+	if u.p+1 == len(u.UAs) {
+		u.p = 0
 		return u.UAs[len(u.UAs)-1], nil
 	}
-	p++
-	return u.UAs[p-1], nil
+	u.p++
+	return u.UAs[u.p-1], nil
 }
 
-func (u UA) Set(ua string) {
+func (u *UA) Set(ua string) {
 	u.UAs = append(u.UAs, user_agent.New(ua))
 }
 
